@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Fahzqy Digital | Solusi Digital Siap Pakai</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at 20% 30%, #0a0a1a, #02040c);
+      color: #f0f3fc;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #7c3aed;
+      border-radius: 10px;
+    }
+
+    /* floating shapes lebih artistic */
+    .floating-shape {
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.25;
+      filter: blur(80px);
+      border-radius: 50%;
+    }
+    .shape1 { width: 500px; height: 500px; top: -200px; left: -150px; background: radial-gradient(circle, #4f46e5, #2e1065); }
+    .shape2 { width: 600px; height: 600px; bottom: -250px; right: -180px; background: radial-gradient(circle, #a855f7, #3b0764); }
+    .shape3 { width: 350px; height: 350px; top: 50%; left: 70%; background: radial-gradient(circle, #2563eb, #0c0a2a); }
+    .shape4 { width: 280px; height: 280px; bottom: 20%; left: 5%; background: radial-gradient(circle, #ec489a, #4c1d95); opacity: 0.15; }
+
+    .glass-card {
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Premium Button */
+    .btn-premium {
+      background: linear-gradient(115deg, #4f46e5, #7c3aed);
+      border: none;
+      padding: 14px 38px;
+      font-weight: 700;
+      border-radius: 50px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+    .btn-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(124, 58, 237, 0.5);
+      background: linear-gradient(115deg, #6366f1, #8b5cf6);
+    }
+    .btn-outline-premium {
+      background: transparent;
+      border: 1.8px solid rgba(139, 92, 246, 0.8);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      color: #e0d6ff;
+      transition: 0.25s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(4px);
+    }
+    .btn-outline-premium:hover {
+      background: rgba(139, 92, 246, 0.2);
+      border-color: #c084fc;
+      color: white;
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.5);
+      transform: scale(1.02);
+    }
+
+    .hero-animate {
+      animation: fadeSlideUp 0.9s ease-out forwards;
+    }
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(40px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Profile Image dengan efek glow premium */
+    .profile-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(168, 85, 247, 0.7);
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.5);
+      transition: 0.3s;
+    }
+    .profile-img:hover {
+      transform: scale(1.03);
+      border-color: #e879f9;
+      box-shadow: 0 0 45px #a855f7;
+    }
+
+    .badge-creator {
+      background: rgba(124, 58, 237, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 6px 20px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .benefit-card {
+      background: rgba(12, 18, 34, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 2rem;
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+      transition: all 0.25s;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .benefit-card:hover {
+      background: rgba(30, 41, 59, 0.65);
+      transform: translateY(-6px);
+      border-color: rgba(139, 92, 246, 0.4);
+    }
+
+    .testi-card {
+      background: rgba(20, 28, 48, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 2rem;
+      padding: 1.8rem;
+      border-left: 4px solid #a855f7;
+      transition: 0.2s;
+    }
+    .testi-card:hover {
+      background: rgba(30, 41, 59, 0.7);
+      transform: translateX(5px);
+    }
+
+    footer a {
+      color: #cbd5e1;
+      transition: 0.2s;
+      text-decoration: none;
+    }
+    footer a:hover {
+      color: #c084fc;
+    }
+
+    .motivation-box {
+      background: linear-gradient(125deg, rgba(79,70,229,0.15), rgba(139,92,246,0.08));
+      border-radius: 2.5rem;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(139,92,246,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .cta-glow {
+      background: radial-gradient(circle at 30% 10%, rgba(79,70,229,0.3), rgba(0,0,0,0.2));
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      h1 { font-size: 2rem !important; }
+      .flex-hero { flex-direction: column; text-align: center; gap: 1.5rem; }
+      .btn-group { justify-content: center; }
+      .profile-img { width: 120px; height: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="floating-shape shape1"></div>
+<div class="floating-shape shape2"></div>
+<div class="floating-shape shape3"></div>
+<div class="floating-shape shape4"></div>
+
+<nav style="padding: 22px 0; position: relative; z-index: 10;">
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div style="font-weight: 800; font-size: 1.7rem; background: linear-gradient(135deg, #ffffff, #c084fc, #a78bfa); -webkit-background-clip: text; background-clip: text; color: transparent;">Fahzqy<span style="color:#c084fc;"> Digital</span></div>
+    <div style="display: flex; gap: 32px; align-items: center;">
+      <a href="#keunggulan" style="color:#e2e8f0; text-decoration:none; font-weight:500; transition:0.2s;"><i class="fas fa-crown"></i> Keunggulan</a>
+      <a href="#testimoni" style="color:#e2e8f0; text-decoration:none; font-weight:500; transition:0.2s;"><i class="fas fa-comment"></i> Testimoni</a>
+      <a href="https://lynk.id/fahzqy.digital" target="_blank" style="color:#c084fc; text-decoration:none; font-weight:600;"><i class="fas fa-store"></i> Lynk</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero Section dengan Foto Profil dan Tombol Kunjungi -->
+  <section class="container" style="padding-top: 2rem; padding-bottom: 2rem;">
+    <div class="hero-animate" data-aos="fade-up" data-aos-duration="800">
+      <div class="profile-wrapper">
+        <img src="Fahzqy Digital logo design.png" 
+             alt="Profil Fahzqy Digital - Lynk.id" 
+             class="profile-img"
+             loading="lazy">
+      </div>
+      <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+        <span class="badge-creator"><i class="fas fa-check-circle"></i> Verified Creator • Lynk.id</span>
+        <h1 style="font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin: 1rem 0 0.5rem; background: linear-gradient(135deg, #FFFFFF, #d9b4ff, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent;">Fahzqy Digital</h1>
+        <p style="font-size: 1.25rem; color: #cbd5e6; margin-bottom: 1rem;">✨ Solusi Digital Siap Pakai • Template & Tools Profesional ✨</p>
+        <div class="btn-group" style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem;">
+          <a href="https://lynk.id/fahzqy.digital" target="_blank" class="btn-premium"><i class="fas fa-arrow-right-to-bracket"></i> Kunjungi Profil & Beli</a>
+          <a href="https://lynk.id/fahzqy.digital" target="_blank" class="btn-outline-premium"><i class="fas fa-grid-2"></i> Lihat Koleksi</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kata Motivasi / Promosi Tanpa Diskon/Bonus, Lebih Fokus Manfaat -->
+  <section class="container" style="padding: 1.5rem 0 2rem;">
+    <div data-aos="fade-up" data-aos-delay="100">
+      <div class="motivation-box">
+        <i class="fas fa-rocket" style="font-size: 2.4rem; color: #c084fc; margin-bottom: 0.5rem; display: inline-block;"></i>
+        <h2 style="font-size: 2rem; font-weight: 700; margin: 0.5rem 0;">🚀 Waktunya Bekerja Lebih Cerdas, Bukan Lebih Keras</h2>
+        <p style="font-size: 1.1rem; color: #e2e8f0; max-width: 750px; margin: 0.8rem auto;">Produk digital dari <strong class="text-gradient">Fahzqy Digital</strong> dirancang untuk membantu kamu menyelesaikan pekerjaan lebih cepat, desain lebih profesional, dan hasil maksimal. Tanpa ribet, langsung praktis.</p>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.8rem; margin-top: 1.8rem;">
+          <div><i class="fas fa-database" style="color:#a855f7;"></i> Akses Langsung</div>
+          <div><i class="fas fa-magic" style="color:#facc15;"></i> Siap Pakai</div>
+          <div><i class="fas fa-chart-line" style="color:#34d399;"></i> Tingkatkan Efisiensi</div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <a href="https://lynk.id/fahzqy.digital" target="_blank" class="btn-premium"><i class="fas fa-store"></i>  Kunjungi Profil Sekarang  </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keunggulan Premium (tanpa diskon) -->
+  <section id="keunggulan" class="container" style="padding: 2rem 0 3.5rem;">
+    <div style="text-align: center; margin-bottom: 2.5rem;" data-aos="fade-up">
+      <h2 style="font-size: 2.2rem; font-weight: 700;">⚡ Keunggulan Produk Digital Kami</h2>
+      <p style="color:#9ca3af; max-width: 600px; margin: 0.5rem auto;">Kualitas terbaik untuk mendukung produktivitas tanpa batas</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;" data-aos="fade-up" data-aos-delay="100">
+      <div class="benefit-card">
+        <i class="fas fa-bolt" style="font-size: 2.5rem; color: #facc15;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Praktis & Siap Pakai</h3>
+        <p style="color: #cbd5e6;">Unduh dalam hitungan detik, langsung terintegrasi dengan workflow-mu.</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-palette" style="font-size: 2.5rem; color: #ec489a;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Desain Kekinian</h3>
+        <p style="color: #cbd5e6;">Tampilan modern dan profesional, bikin brand atau proyekmu standout.</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-hourglass-half" style="font-size: 2.5rem; color: #60a5fa;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Hemat Waktu & Tenaga</h3>
+        <p style="color: #cbd5e6;">Tidak perlu membuat dari nol, fokus pada hal yang lebih penting.</p>
+      </div>
+      <div class="benefit-card">
+        <i class="fas fa-tag" style="font-size: 2.5rem; color: #34d399;"></i>
+        <h3 style="margin: 1rem 0 0.5rem;">Harga Terjangkau</h3>
+        <p style="color: #cbd5e6;">Nilai lebih untuk kualitas premium, cocok untuk semua kalangan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoni Murni tanpa embel-embel promo -->
+  <section id="testimoni" class="container" style="padding: 1rem 0 4rem;">
+    <div style="text-align: center; margin-bottom: 2.5rem;" data-aos="fade-up">
+      <h2 style="font-size: 2.2rem;">💬 Kata Mereka yang Sudah Merasakan</h2>
+      <p style="color: #94a3b8;">Lebih dari 500+ kreator & profesional percaya pada produk kami</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 2rem;">
+      <div class="testi-card" data-aos="flip-left" data-aos-delay="100">
+        <i class="fas fa-quote-left" style="font-size: 1.8rem; color: #a855f7; opacity: 0.8;"></i>
+        <p style="margin: 1rem 0; font-style: italic; line-height: 1.5;">“Template dari Fahzqy Digital langsung saya pakai untuk presentasi penting. Klien saya terkesan, dan saya hemat waktu banyak. Recommended!”</p>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 1rem;">
+          <div style="background: linear-gradient(145deg,#4f46e5,#a855f7); width: 42px; height: 42px; border-radius: 100%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-user"></i></div>
+          <div><strong>— Kirana A.</strong><br>Content Creator</div>
+        </div>
+      </div>
+      <div class="testi-card" data-aos="flip-left" data-aos-delay="200">
+        <i class="fas fa-quote-left" style="font-size: 1.8rem; color: #a855f7; opacity: 0.8;"></i>
+        <p style="margin: 1rem 0; font-style: italic;">“Produk digitalnya sangat membantu manajemen tim saya. Notion system yang dibeli benar-benar meningkatkan produktivitas. Worth every penny!”</p>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 1rem;">
+          <div style="background: linear-gradient(145deg,#4f46e5,#a855f7); width: 42px; height: 42px; border-radius: 100%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-user-tie"></i></div>
+          <div><strong>— Bagas P.</strong><br>Project Manager</div>
+        </div>
+      </div>
+      <div class="testi-card" data-aos="flip-left" data-aos-delay="300">
+        <i class="fas fa-quote-left" style="font-size: 1.8rem; color: #a855f7; opacity: 0.8;"></i>
+        <p style="margin: 1rem 0; font-style: italic;">“Desainnya kekinian dan praktis. Saya jadi bisa menyelesaikan desain sosial media lebih cepat. Langsung repeat order lagi!”</p>
+        <div style="display: flex; align-items: center; gap: 12px; margin-top: 1rem;">
+          <div style="background: linear-gradient(145deg,#4f46e5,#a855f7); width: 42px; height: 42px; border-radius: 100%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-chart-simple"></i></div>
+          <div><strong>— Dina F.</strong><br>Digital Marketer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call To Action (Tanpa Diskon/Bonus, Hanya Manfaat & Aksi) -->
+  <section class="container" style="padding: 1rem 0 5rem;">
+    <div class="glass-card cta-glow" style="padding: 3rem 2rem; text-align: center; border-radius: 3rem; background: linear-gradient(125deg, rgba(79,70,229,0.2), rgba(139,92,246,0.1));" data-aos="zoom-in-up">
+      <i class="fas fa-crown" style="font-size: 2.5rem; color: #facc15;"></i>
+      <h2 style="font-size: 2.1rem; font-weight: 800; margin: 1rem 0 0.5rem;">Siap Tingkatkan Kualitas Kerjamu?</h2>
+      <p style="margin: 0 auto 1.5rem auto; max-width: 600px; color: #e0e7ff; font-size: 1.05rem;">Jadilah bagian dari ribuan profesional yang sudah beralih ke solusi digital siap pakai. Akses produk berkualitas hanya dengan satu klik.</p>
+      <div style="display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://lynk.id/fahzqy.digital" target="_blank" class="btn-premium" style="padding: 14px 42px;"><i class="fas fa-cart-shopping"></i> Beli Sekarang</a>
+        <a href="https://lynk.id/fahzqy.digital" target="_blank" class="btn-outline-premium"><i class="fas fa-user-astronaut"></i> Kunjungi Profil</a>
+      </div>
+      <p style="margin-top: 1.8rem; font-size: 0.85rem; color: #94a3b8;"><i class="fas fa-shield-alt"></i> Transaksi aman via Lynk.id • File langsung tersedia</p>
+    </div>
+  </section>
+
+  <!-- Motivasi penutup yang inspiratif tanpa bonus -->
+  <section class="container" style="padding-bottom: 2rem;">
+    <div style="text-align: center; padding: 1rem; border-radius: 2.5rem; background: rgba(0,0,0,0.2);" data-aos="fade-up">
+      <p style="font-size: 1.1rem; font-weight: 500;">✨ <strong>“Setiap langkah kecil menuju efisiensi adalah investasi terbaik untuk masa depanmu. Kunjungi profil dan temukan produk yang tepat!”</strong> ✨</p>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer style="border-top: 1px solid rgba(139,92,246,0.3); margin-top: 1rem; padding: 2.5rem 0 2rem;">
+  <div class="container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;">
+      <div>
+        <h3 style="font-weight: 700; font-size: 1.6rem; background: linear-gradient(135deg, #fff, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent;">Fahzqy Digital</h3>
+        <p style="color: #9ca3af; max-width: 260px;">Menyediakan produk digital modern untuk meningkatkan produktivitas dan kreativitas tanpa batas.</p>
+        <div style="display: flex; gap: 1.2rem; margin-top: 1rem;">
+          <a href="https://lynk.id/fahzqy.digital" target="_blank" aria-label="Lynk"><i class="fas fa-link fa-lg"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Jelajahi</h4>
+        <ul style="list-style: none; margin-top: 12px;">
+          <li><a href="#keunggulan"><i class="fas fa-angle-right"></i> Keunggulan</a></li>
+          <li><a href="#testimoni"><i class="fas fa-angle-right"></i> Testimoni</a></li>
+          <li><a href="https://lynk.id/fahzqy.digital" target="_blank"><i class="fas fa-angle-right"></i> Toko Lynk.id</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak & Media</h4>
+        <p style="margin-top: 12px;"><i class="fas fa-store"></i> <a href="https://lynk.id/fahzqy.digital" target="_blank">lynk.id/fahzqy.digital</a></p>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); color: #6b7280; font-size: 0.85rem;">
+      © 2025 Fahzqy Digital — Solusi Siap Pakai untuk Karier & Bisnismu. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 700,
+    once: true,
+    mirror: false,
+    offset: 30,
+    easing: 'ease-out-quad'
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === "#" || targetId === "") return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  console.log("Landing page Fahzqy Digital - Elegant & High Conversion");
+</script>
+</body>
+</html>
